@@ -23,4 +23,327 @@
         }
 
         /* 맑고 투명한 하늘빛 별자리 배경 */
-        .stars-container
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0.2) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+            opacity: 0.4;
+            animation: twinkle var(--duration, 3s) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.7);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.3);
+            }
+        }
+
+        /* 둥글둥글하고 러블리한 카드 및 그림자 효과 */
+        .portfolio-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid #e0efff;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.04);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #93c5fd;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.12);
+        }
+
+        /* 귀여운 동글동글 푸른 톤 그라데이션 타이틀 텍스트 */
+        .gradient-title {
+            background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen pb-20">
+
+    <!-- 파란색 twinkling 별 배경 효과 -->
+    <div class="stars-container" id="stars"></div>
+
+    <!-- 상단 멜로디 재생 컨트롤러 영역 -->
+    <div class="fixed top-6 right-6 z-50">
+        <button onclick="toggleMelody()" id="music-btn" class="flex items-center gap-3 bg-white border-2 border-blue-200 text-blue-500 hover:text-blue-600 hover:border-blue-400 font-semibold px-5 py-3 rounded-full shadow-lg transition-all transform active:scale-95 duration-200">
+            <span class="relative flex h-3 w-3" id="live-indicator" style="display: none;">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+            </span>
+            <i class="fa-solid fa-music text-lg animate-bounce"></i>
+            <span id="music-text">멜로디 켜기 ♪</span>
+        </button>
+    </div>
+
+    <!-- 메인 타이틀 영역 (귀엽고 단순화된 레이아웃) -->
+    <header class="relative z-10 text-center pt-20 pb-12 px-4 max-w-4xl mx-auto">
+        <div class="inline-block bg-blue-50 border border-blue-200 text-blue-600 text-sm font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
+            <i class="fa-regular fa-star mr-1.5"></i> Web Design Gallery <i class="fa-regular fa-star ml-1.5"></i>
+        </div>
+        <h1 class="gradient-title text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
+            SEO-BEAN PORTFOLIO
+        </h1>
+        <p class="text-blue-400 text-sm sm:text-base font-medium tracking-wide">
+            11개의 엄선된 웹 디자인 컬렉션
+        </p>
+        <div class="w-16 h-1 bg-gradient-to-r from-blue-300 to-blue-500 mx-auto mt-6 rounded-full"></div>
+    </header>
+
+    <!-- 포트폴리오 이미지 그리드 영역 -->
+    <main class="relative z-10 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            
+            <!-- 포트폴리오 1 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 1" src="1.jpg" onerror="handleImageError(this, '1.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">01번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 2 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 2" src="2.jpg" onerror="handleImageError(this, '2.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">02번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 3 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 3" src="3.jpg" onerror="handleImageError(this, '3.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">03번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 4 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 4" src="4.jpg" onerror="handleImageError(this, '4.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">04번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 5 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 5" src="5.jpg" onerror="handleImageError(this, '5.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">05번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 6 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 6" src="6.jpg" onerror="handleImageError(this, '6.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">06번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 7 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 7" src="7.jpg" onerror="handleImageError(this, '7.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">07번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 8 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 8" src="8.jpg" onerror="handleImageError(this, '8.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">08번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 9 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 9" src="9.jpg" onerror="handleImageError(this, '9.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">09번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 10 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 10" src="10.jpg" onerror="handleImageError(this, '10.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">10번 디자인</h2>
+                </div>
+            </div>
+
+            <!-- 포트폴리오 11 -->
+            <div class="portfolio-card overflow-hidden">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
+                    <img class="w-full h-full object-cover" alt="Portfolio 11" src="11.jpg" onerror="handleImageError(this, '11.png')">
+                </div>
+                <div class="p-5 text-center border-t border-blue-50">
+                    <span class="text-xs font-bold text-blue-400 tracking-wider">PROJECT</span>
+                    <h2 class="text-lg font-bold text-slate-800 mt-1">11번 디자인</h2>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 하단 라이센스 푸터 -->
+    <footer class="relative z-10 text-center mt-24 text-sm text-slate-400 font-medium">
+        <p>© 2026 이서빈. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 1. 귀여운 파란 별 생성 로직
+        const starsContainer = document.getElementById('stars');
+        const totalStars = 100;
+
+        for (let i = 0; i < totalStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // 귀여운 미세한 사이즈 조절
+            const size = Math.random() * 3.5 + 1.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            
+            // 랜덤 위치 분포
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            
+            // 반짝임의 랜덤 템포 부여
+            const duration = Math.random() * 4 + 2.5;
+            star.style.setProperty('--duration', duration + 's');
+            
+            starsContainer.appendChild(star);
+        }
+
+        // 2. 확장자 누락 자동 우회 로직 (.jpg가 없으면 자동으로 .png로 대체로드 시도)
+        function handleImageError(imageElement, fallbackSrc) {
+            imageElement.onerror = null;
+            imageElement.src = fallbackSrc;
+        }
+
+        // 3. 귀여운 오르골 멜로디 재생 엔진 (Tone.js 활용)
+        let isPlaying = false;
+        let polySynth;
+        let loopEvent;
+
+        function initSynth() {
+            if (!polySynth) {
+                // 부드럽고 귀여운 오르골 건반 소리를 내는 신디사이저 설정
+                polySynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: {
+                        type: "sine" // 맑고 동글동글한 고유 사인파음
+                    },
+                    envelope: {
+                        attack: 0.08,
+                        decay: 0.24,
+                        sustain: 0.15,
+                        release: 1.2
+                    }
+                }).toDestination();
+                
+                // 귀에 거슬리지 않는 적절하고 귀여운 음량 조절 (-16dB)
+                polySynth.volume.value = -16;
+
+                // 통통 튀는 아기자기한 동요풍 멜로디 배열 (C Major pentatonic 기반)
+                const melody = [
+                    "E5", "G5", "A5", "G5", "E5", "C5", "D5", "C5",
+                    "E5", "E5", "G5", "G5", "A5", "C6", "A5", "G5",
+                    "A5", "C6", "D6", "C6", "A5", "G5", "E5", "D5",
+                    "C5", "D5", "E5", "G5", "D5", "E5", "C5", "C5"
+                ];
+
+                let noteIdx = 0;
+
+                // 일정한 박자로 귀엽게 연주하는 루프 이벤트 등록
+                loopEvent = new Tone.Loop((time) => {
+                    let currentNote = melody[noteIdx % melody.length];
+                    
+                    // 조금 더 인간적이고 무작위적인 아기자기함을 위한 미세 레이턴시
+                    polySynth.triggerAttackRelease(currentNote, "8n", time);
+                    noteIdx++;
+                }, "8n");
+            }
+        }
+
+        async function toggleMelody() {
+            // 브라우저 정책상 사용자 상호작용 후 사운드가 허용되도록 동적 활성화
+            await Tone.start();
+            initSynth();
+
+            const btnText = document.getElementById('music-text');
+            const liveIndicator = document.getElementById('live-indicator');
+            const btn = document.getElementById('music-btn');
+
+            if (isPlaying) {
+                Tone.Transport.stop();
+                loopEvent.stop();
+                isPlaying = false;
+                btnText.textContent = "멜로디 켜기 ♪";
+                liveIndicator.style.display = "none";
+                btn.classList.remove('border-blue-500', 'bg-blue-50');
+            } else {
+                Tone.Transport.start();
+                loopEvent.start(0);
+                isPlaying = true;
+                btnText.textContent = "멜로디 끄기 ♬";
+                liveIndicator.style.display = "inline-flex";
+                btn.classList.add('border-blue-500', 'bg-blue-50');
+            }
+        }
+    </script>
+</body>
+</html>
