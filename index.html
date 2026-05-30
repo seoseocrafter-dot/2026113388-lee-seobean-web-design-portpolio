@@ -16,13 +16,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
     <style>
+        /* 1. 이미지 및 복사 도용 금지 강력한 CSS 조치 */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; /* 드래그 및 복사 금지 */
+            -webkit-touch-callout: none; /* 모바일 길게 누르기 이미지 저장 차단 */
+        }
+
         body {
             font-family: 'Noto Sans KR', 'Poppins', sans-serif;
             background-color: #fafcff;
             overflow-x: hidden;
         }
 
-        /* 맑고 투명한 하늘빛 별자리 배경 */
+        /* 맑고 투명한 하늘빛 배경 위 파란색 별자리 */
         .stars-container {
             position: fixed;
             top: 0;
@@ -121,14 +130,19 @@
             display: flex;
             opacity: 1;
         }
+
+        /* 모달 이미지 저장 완전 방지를 위한 드래그 불가 가림막 */
+        .img-guard {
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
     </style>
 </head>
 <body class="relative min-h-screen pb-20">
 
-    <!-- 파란색 twinkling 별 배경 효과 -->
     <div class="stars-container" id="stars"></div>
 
-    <!-- 멜로디 온오프 버튼 -->
+    <!-- 가야금 멜로디 온오프 버튼 -->
     <div class="fixed top-6 right-6 z-50">
         <button onclick="toggleMelody()" id="music-btn" class="flex items-center gap-3 bg-white border-2 border-blue-200 text-blue-500 hover:text-blue-600 hover:border-blue-400 font-semibold px-5 py-3 rounded-full shadow-lg transition-all transform active:scale-95 duration-200">
             <span class="relative flex h-3 w-3" id="live-indicator" style="display: none;">
@@ -136,7 +150,7 @@
                 <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
             </span>
             <i class="fa-solid fa-music text-lg animate-bounce"></i>
-            <span id="music-text">멜로디 켜기 ♪</span>
+            <span id="music-text">가야금 켜기 ♫</span>
         </button>
     </div>
 
@@ -154,14 +168,13 @@
         <div class="w-16 h-1 bg-gradient-to-r from-blue-300 to-blue-500 mx-auto mt-6 rounded-full"></div>
     </header>
 
-    <!-- 포트폴리오 카드 그리드 (총 10개) -->
     <main class="relative z-10 max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             
             <!-- 포트폴리오 1 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(1)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-1" class="w-full h-full object-cover" alt="Portfolio 1" src="1.jpg?v=1.1" onerror="handleImageError(this, 1)">
+                    <img id="portfolio-img-1" class="w-full h-full object-cover img-guard" alt="Portfolio 1" src="1.jpg?v=1.1" onerror="handleImageError(this, 1)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md transform scale-90 group-hover:scale-100 transition-all">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -177,7 +190,7 @@
             <!-- 포트폴리오 2 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(2)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-2" class="w-full h-full object-cover" alt="Portfolio 2" src="2.jpg?v=1.1" onerror="handleImageError(this, 2)">
+                    <img id="portfolio-img-2" class="w-full h-full object-cover img-guard" alt="Portfolio 2" src="2.jpg?v=1.1" onerror="handleImageError(this, 2)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -193,7 +206,7 @@
             <!-- 포트폴리오 3 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(3)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-3" class="w-full h-full object-cover" alt="Portfolio 3" src="3.jpg?v=1.1" onerror="handleImageError(this, 3)">
+                    <img id="portfolio-img-3" class="w-full h-full object-cover img-guard" alt="Portfolio 3" src="3.jpg?v=1.1" onerror="handleImageError(this, 3)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -209,7 +222,7 @@
             <!-- 포트폴리오 4 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(4)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-4" class="w-full h-full object-cover" alt="Portfolio 4" src="4.jpg?v=1.1" onerror="handleImageError(this, 4)">
+                    <img id="portfolio-img-4" class="w-full h-full object-cover img-guard" alt="Portfolio 4" src="4.jpg?v=1.1" onerror="handleImageError(this, 4)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -225,7 +238,7 @@
             <!-- 포트폴리오 5 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(5)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-5" class="w-full h-full object-cover" alt="Portfolio 5" src="5.jpg?v=1.1" onerror="handleImageError(this, 5)">
+                    <img id="portfolio-img-5" class="w-full h-full object-cover img-guard" alt="Portfolio 5" src="5.jpg?v=1.1" onerror="handleImageError(this, 5)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -238,10 +251,10 @@
                 </div>
             </div>
 
-            <!-- 포트폴리오 6 (사용자가 새롭게 변경한 이미지 대상) -->
+            <!-- 포트폴리오 6 (새 이미지) -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(6)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-6" class="w-full h-full object-cover" alt="Portfolio 6" src="6.jpg?v=1.1" onerror="handleImageError(this, 6)">
+                    <img id="portfolio-img-6" class="w-full h-full object-cover img-guard" alt="Portfolio 6" src="6.jpg?v=1.1" onerror="handleImageError(this, 6)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -257,7 +270,7 @@
             <!-- 포트폴리오 7 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(7)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-7" class="w-full h-full object-cover" alt="Portfolio 7" src="7.jpg?v=1.1" onerror="handleImageError(this, 7)">
+                    <img id="portfolio-img-7" class="w-full h-full object-cover img-guard" alt="Portfolio 7" src="7.jpg?v=1.1" onerror="handleImageError(this, 7)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -273,7 +286,7 @@
             <!-- 포트폴리오 8 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(8)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-8" class="w-full h-full object-cover" alt="Portfolio 8" src="8.jpg?v=1.1" onerror="handleImageError(this, 8)">
+                    <img id="portfolio-img-8" class="w-full h-full object-cover img-guard" alt="Portfolio 8" src="8.jpg?v=1.1" onerror="handleImageError(this, 8)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -289,7 +302,7 @@
             <!-- 포트폴리오 9 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(9)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-9" class="w-full h-full object-cover" alt="Portfolio 9" src="9.jpg?v=1.1" onerror="handleImageError(this, 9)">
+                    <img id="portfolio-img-9" class="w-full h-full object-cover img-guard" alt="Portfolio 9" src="9.jpg?v=1.1" onerror="handleImageError(this, 9)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -305,7 +318,7 @@
             <!-- 포트폴리오 10 -->
             <div class="portfolio-card overflow-hidden" onclick="openLightbox(10)">
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                    <img id="portfolio-img-10" class="w-full h-full object-cover" alt="Portfolio 10" src="10.jpg?v=1.1" onerror="handleImageError(this, 10)">
+                    <img id="portfolio-img-10" class="w-full h-full object-cover img-guard" alt="Portfolio 10" src="10.jpg?v=1.1" onerror="handleImageError(this, 10)">
                     <div class="card-overlay">
                         <span class="bg-white/90 text-blue-600 p-4 rounded-full shadow-md">
                             <i class="fa-solid fa-magnifying-glass-plus text-xl"></i>
@@ -335,8 +348,10 @@
 
         <!-- 확대 콘텐츠 카드 박스 -->
         <div class="relative max-w-4xl w-[92%] h-auto max-h-[82vh] bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-2xl flex flex-col items-center p-4 md:p-6" onclick="event.stopPropagation()">
-            <div class="w-full h-[65vh] rounded-2xl overflow-hidden bg-slate-50 flex items-center justify-center">
-                <img id="modal-img" class="max-w-full max-h-full object-contain" alt="Expanded work">
+            <div class="w-full h-[65vh] rounded-2xl overflow-hidden bg-slate-50 flex items-center justify-center relative">
+                <img id="modal-img" class="max-w-full max-h-full object-contain img-guard" alt="Expanded work">
+                <!-- 이미지 저장 방지용 투명 가림막 -->
+                <div class="absolute inset-0 z-10 bg-transparent"></div>
             </div>
             <div class="mt-4 text-center">
                 <span class="text-xs font-bold text-blue-500 tracking-wider">PREVIEW</span>
@@ -355,9 +370,50 @@
         <p>© 2026 이서빈. All rights reserved.</p>
     </footer>
 
-    <!-- 자바스크립트 로직 -->
     <script>
-        // 1. 귀여운 파란 별 생성 로직
+        // ==========================================
+        // 1. 보안 설정: 우클릭, 드래그, 단축키 철저 차단
+        // ==========================================
+        
+        // 1-1. 마우스 오른쪽 클릭 메뉴 원천 차단
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // 1-2. 이미지 드래그 차단 (다운로드 방지)
+        document.addEventListener('dragstart', (e) => {
+            if (e.target.tagName === 'IMG' || e.target.classList.contains('img-guard')) {
+                e.preventDefault();
+            }
+        });
+
+        // 1-3. 개발자 도구 및 소스 복제용 단축키 차단 (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+C, Ctrl+S)
+        document.addEventListener('keydown', (e) => {
+            // F12 차단
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Ctrl + Shift + I (크롬 개발자 도구)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) {
+                e.preventDefault();
+            }
+            // Ctrl + U (소스 코드 보기)
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+            }
+            // Ctrl + S (페이지 저장)
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+            }
+            // Ctrl + C, Ctrl + X, Ctrl + V 차단
+            if (e.ctrlKey && (e.key === 'C' || e.key === 'c' || e.key === 'X' || e.key === 'x' || e.key === 'V' || e.key === 'v')) {
+                e.preventDefault();
+            }
+        });
+
+        // ==========================================
+        // 2. 귀여운 파란 별 생성 로직
+        // ==========================================
         const starsContainer = document.getElementById('stars');
         const totalStars = 100;
 
@@ -378,7 +434,9 @@
             starsContainer.appendChild(star);
         }
 
-        // 2. 고도화된 다중 확장자 시도 로직 (캐시를 무시하기 위한 랜덤 버전 추가)
+        // ==========================================
+        // 3. 다중 확장자 자동 매칭 및 캐시 방지 시스템
+        // ==========================================
         const formats = ['jpg', 'png', 'jpeg', 'PNG', 'JPG'];
         
         function handleImageError(imageElement, fileNum) {
@@ -400,7 +458,9 @@
             }
         }
 
-        // 3. 라이트박스 (확대 보기 & 슬라이더 연동) 제어 변수 및 함수
+        // ==========================================
+        // 4. 라이트박스 팝업 및 슬라이더 시스템
+        // ==========================================
         let currentIdx = 1;
         const totalProjects = 10;
         const modal = document.getElementById('lightbox-modal');
@@ -414,7 +474,7 @@
             setTimeout(() => {
                 modal.classList.add('show');
             }, 10);
-            document.body.style.overflow = 'hidden'; // 스크롤 차단
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeLightbox() {
@@ -422,11 +482,10 @@
             setTimeout(() => {
                 modal.style.display = 'none';
             }, 300);
-            document.body.style.overflow = 'auto'; // 스크롤 환원
+            document.body.style.overflow = 'auto'; 
         }
 
         function updateModalContent() {
-            // 그리드 카드에 현재 성공적으로 로드된 최신 이미지의 src 주소를 그대로 복사해 옵니다 (확장자 충돌 100% 방지)
             const sourceImg = document.getElementById(`portfolio-img-${currentIdx}`);
             if (sourceImg) {
                 modalImg.src = sourceImg.src;
@@ -446,50 +505,86 @@
             updateModalContent();
         }
 
-        // 키보드 방향키 및 ESC 단축키 바인딩
+        // 키보드 내비게이션 연계
         document.addEventListener('keydown', (e) => {
             if (modal.classList.contains('show')) {
                 if (e.key === 'ArrowRight') changeImage(1);
                 if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'Escape') closeModal();
+                if (e.key === 'Escape') closeLightbox();
             }
         });
 
-        // 4. 귀여운 오르골 멜로디 재생 엔진 (Tone.js 활용)
+        // ==========================================
+        // 5. 정밀 조율된 전통 가야금(Gayageum) 사운드 엔진
+        // ==========================================
         let isPlaying = false;
-        let polySynth;
+        let gayageumSynth;
         let loopEvent;
 
         function initSynth() {
-            if (!polySynth) {
-                polySynth = new Tone.PolySynth(Tone.Synth, {
+            if (!gayageumSynth) {
+                // 가야금 특유의 농현(진동 효과)을 위한 비브라토 연결
+                const vibrato = new Tone.Vibrato({
+                    frequency: 5.5, // 떨림의 주기
+                    depth: 0.18      // 떨림의 너비 (농현 느낌)
+                }).toDestination();
+
+                // 가야금 발현악기 특유의 잔향과 현의 깊이감을 위한 딜레이 연결
+                const delay = new Tone.FeedbackDelay({
+                    delayTime: "4n.",
+                    feedback: 0.15
+                }).connect(vibrato);
+
+                // 가야금의 따뜻하고 목가적인 줄 튕김을 모사하는 합성기 설계
+                gayageumSynth = new Tone.PolySynth(Tone.Synth, {
                     oscillator: {
-                        type: "sine"
+                        type: "triangle" // 가야금 오동나무 울림통 소리를 내는 따뜻한 파형
                     },
                     envelope: {
-                        attack: 0.08,
-                        decay: 0.24,
-                        sustain: 0.15,
-                        release: 1.2
+                        attack: 0.008, // 현을 손가락으로 채는 빠르고 날카로운 순간
+                        decay: 0.6,    // 현의 울림이 잦아드는 속도
+                        sustain: 0.02, // 손가락을 뗀 뒤 미세하게 남는 줄의 떨림
+                        release: 0.8
                     }
-                }).toDestination();
+                }).connect(delay);
                 
-                polySynth.volume.value = -16;
+                // 가야금 독주 느낌을 주는 정밀한 볼륨 레벨 지정
+                gayageumSynth.volume.value = -8;
 
-                const melody = [
-                    "E5", "G5", "A5", "G5", "E5", "C5", "D5", "C5",
-                    "E5", "E5", "G5", "G5", "A5", "C6", "A5", "G5",
-                    "A5", "C6", "D6", "C6", "A5", "G5", "E5", "D5",
-                    "C5", "D5", "E5", "G5", "D5", "E5", "C5", "C5"
+                // 정통 한국 민요 "아리랑" 가야금 독주 음표 배치 (3/4 박자 세마치 장단 분위기)
+                const arirangMelody = [
+                    { note: "D4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "G4", duration: "2n" },
+                    { note: "G4", duration: "4n" }, { note: "A4", duration: "8n" }, { note: "G4", duration: "4n" }, { note: "E4", duration: "8n" },
+                    { note: "D4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "G4", duration: "2n" },
+                    { note: "A4", duration: "4n" }, { note: "G4", duration: "8n" }, { note: "E4", duration: "2n" },
+
+                    { note: "D4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "G4", duration: "2n" },
+                    { note: "G4", duration: "4n" }, { note: "A4", duration: "8n" }, { note: "B4", duration: "4n" }, { note: "A4", duration: "8n" },
+                    { note: "G4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "D4", duration: "2n" },
+                    { note: "D4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "D4", duration: "2n" },
+
+                    // 후렴구 진행
+                    { note: "D5", duration: "4n" }, { note: "B4", duration: "8n" }, { note: "A4", duration: "2n" },
+                    { note: "A4", duration: "4n" }, { note: "B4", duration: "8n" }, { note: "A4", duration: "4n" }, { note: "G4", duration: "8n" },
+                    { note: "E4", duration: "4n" }, { note: "D4", duration: "8n" }, { note: "G4", duration: "2n" },
+                    { note: "A4", duration: "4n" }, { note: "G4", duration: "8n" }, { note: "E4", duration: "2n" },
+
+                    { note: "D4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "G4", duration: "2n" },
+                    { note: "G4", duration: "4n" }, { note: "A4", duration: "8n" }, { note: "B4", duration: "4n" }, { note: "A4", duration: "8n" },
+                    { note: "G4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "D4", duration: "2n" },
+                    { note: "D4", duration: "4n" }, { note: "E4", duration: "8n" }, { note: "D4", duration: "2n" }
                 ];
 
                 let noteIdx = 0;
 
+                // 8분음표 단위로 멜로디의 템포와 흐름 조절
                 loopEvent = new Tone.Loop((time) => {
-                    let currentNote = melody[noteIdx % melody.length];
-                    polySynth.triggerAttackRelease(currentNote, "8n", time);
+                    let currentItem = arirangMelody[noteIdx % arirangMelody.length];
+                    
+                    // 가야금 특유의 농현을 살리기 위한 미세한 피치 슬라이드 가미
+                    gayageumSynth.triggerAttackRelease(currentItem.note, currentItem.duration, time);
                     noteIdx++;
-                }, "8n");
+                }, "4n");
             }
         }
 
@@ -505,14 +600,14 @@
                 Tone.Transport.stop();
                 loopEvent.stop();
                 isPlaying = false;
-                btnText.textContent = "멜로디 켜기 ♪";
+                btnText.textContent = "가야금 켜기 ♫";
                 liveIndicator.style.display = "none";
                 btn.classList.remove('border-blue-500', 'bg-blue-50');
             } else {
                 Tone.Transport.start();
                 loopEvent.start(0);
                 isPlaying = true;
-                btnText.textContent = "멜로디 끄기 ♬";
+                btnText.textContent = "가야금 끄기 ♬";
                 liveIndicator.style.display = "inline-flex";
                 btn.classList.add('border-blue-500', 'bg-blue-50');
             }
